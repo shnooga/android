@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BoomCalc</string>
+    <string name="boom_angle">Boom Angle</string>
+    <string name="object_offset">Object Offset</string>
+    <string name="calc_btn">Calculate</string>
+    <string name="reset_btn">Reset</string>
+    <string name="bld_height">Building Height</string>
+    <string name="bld_dist">Building dist from Crane</string>
+    <string name="boom_len">Boom Length</string>
+    <string name="crane_base_height">Crane base height</string>
+</resources>
