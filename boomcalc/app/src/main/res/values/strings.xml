@@ -8,4 +8,12 @@
     <string name="bld_dist">Building dist from Crane</string>
     <string name="boom_len">Boom Length</string>
     <string name="crane_base_height">Crane base height</string>
+    <string name="jib_adj">Jib Adjustment</string>
+    <string name="jib_len">Jib Length</string>
+    <string name="jib_offset">Jib Offset (deg)</string>
+    <string name="insert_adj">Insert Adjustment</string>
+    <string name="insert_qty">Insert Qty</string>
+    <string name="insert_len">Insert Length</string>
+    <string name="overall_radius">Overall Radius</string>
+    <string name="overall_boom_len">Overall Boom Length</string>
 </resources>
