@@ -99,6 +99,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/boom_len"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
@@ -117,6 +119,8 @@
         android:id="@+id/boom_length"
         android:layout_width="110dp"
         android:layout_height="33dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
@@ -187,28 +191,28 @@
         android:id="@+id/btn_calc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:layout_marginLeft="64dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
         android:onClick="calculate"
         android:text="@string/calc_btn"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/overall_radius" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <Button
         android:id="@+id/btn_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
-        android:layout_marginTop="8dp"
         android:text="@string/reset_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/overall_boom_len" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/boom_angle"
-        android:layout_width="114dp"
+        android:layout_width="100dp"
         android:layout_height="37dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
@@ -220,7 +224,7 @@
 
     <EditText
         android:id="@+id/object_offset"
-        android:layout_width="124dp"
+        android:layout_width="100dp"
         android:layout_height="34dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -366,7 +370,7 @@
     <EditText
         android:id="@+id/jib_len"
         android:layout_width="120dp"
-        android:layout_height="36dp"
+        android:layout_height="39dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
@@ -377,9 +381,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <android.support.constraint.Group
-        android:id="@+id/group"
+        android:id="@+id/jib_grp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textView8,jib_len" />
+        android:visibility="invisible"
+        app:constraint_referenced_ids="textView8,jib_len,textView9,jib_offset,textView12,overall_radius" />
+
+    <android.support.constraint.Group
+        android:id="@+id/insert_grp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="textView10,textView11,insert_len,insert_qty,textView13,overall_boom_len" />
 
 </android.support.constraint.ConstraintLayout>
