@@ -384,7 +384,7 @@
         android:id="@+id/jib_grp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:constraint_referenced_ids="textView8,jib_len,textView9,jib_offset,textView12,overall_radius" />
 
     <android.support.constraint.Group
@@ -393,5 +393,12 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:constraint_referenced_ids="textView10,textView11,insert_len,insert_qty,textView13,overall_boom_len" />
+
+    <android.support.constraint.Group
+        android:id="@+id/cb_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="textView7,textView14,jib_adj_cb,insert_adj_cb" />
 
 </android.support.constraint.ConstraintLayout>

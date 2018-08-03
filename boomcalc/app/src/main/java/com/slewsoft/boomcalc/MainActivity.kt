@@ -11,7 +11,6 @@ class MainActivity : Activity() {
 
     private val jibCbListener = View.OnClickListener { jibAdjustChecked() }
     private val insertCbListener = View.OnClickListener { insertAdjustChecked() }
-//    private var jibCheckBox = null//= findViewById<CheckBox>(R.id.jib_adj_cb)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +24,8 @@ class MainActivity : Activity() {
     }
 
     private fun jibAdjustChecked() {
-
         val jibCheckBox = findViewById<CheckBox>(R.id.jib_adj_cb)
         val jibGroup = findViewById<Group>(R.id.jib_grp)
-        System.out.println("boom " + jibCheckBox.isChecked())
 
         if (jibCheckBox.isChecked()) {
             jibGroup.visibility = View.GONE
@@ -37,14 +34,11 @@ class MainActivity : Activity() {
             jibGroup.visibility = View.GONE
             jibGroup.visibility = View.INVISIBLE
         }
-        System.out.println("boom " + jibCheckBox.visibility)
     }
 
     private fun insertAdjustChecked() {
-
         val jibCheckBox = findViewById<CheckBox>(R.id.insert_adj_cb)
         val jibGroup = findViewById<Group>(R.id.insert_grp)
-        System.out.println("boom " + jibCheckBox.isChecked())
 
         if (jibCheckBox.isChecked()) {
             jibGroup.visibility = View.GONE
@@ -53,7 +47,6 @@ class MainActivity : Activity() {
             jibGroup.visibility = View.GONE
             jibGroup.visibility = View.INVISIBLE
         }
-        System.out.println("boom " + jibCheckBox.visibility)
     }
 
     fun calculate(view: View) {
@@ -66,11 +59,13 @@ class MainActivity : Activity() {
         val hypot = Math.hypot(bldOffset, adjBldHeight)
         val objectOffSet = bldOffset * (boomLen - hypot) / hypot;
 
-
-
-
         findViewById<EditText>(R.id.object_offset).setText(objectOffSet.toString())
         findViewById<EditText>(R.id.boom_angle).setText(boomAngle.toString())
+
+        val cbGroup = findViewById<Group>(R.id.cb_group)
+
+        cbGroup.visibility = View.GONE
+        cbGroup.visibility = View.VISIBLE
     }
 
 }
