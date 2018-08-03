@@ -384,7 +384,7 @@
         android:id="@+id/jib_grp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:constraint_referenced_ids="textView8,jib_len,textView9,jib_offset,textView12,overall_radius" />
 
     <android.support.constraint.Group
