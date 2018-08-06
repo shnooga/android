@@ -49,18 +49,32 @@ class MainActivity : Activity() {
         }
     }
 
-    fun calculate(view: View) {
-        val boomLen = findViewById<EditText>(R.id.boom_length).text.toString().toDouble()
-        val baseHeight = findViewById<EditText>(R.id.crane_base_height).text.toString().toDouble()
-        val bldHeight = findViewById<EditText>(R.id.bldg_heigth).text.toString().toDouble()
-        val bldOffset = findViewById<EditText>(R.id.bldg_offset).text.toString().toDouble()
-        val adjBldHeight = bldHeight - baseHeight
-        val boomAngle = Math.atan(adjBldHeight / bldOffset) * 180 / Math.PI
-        val hypot = Math.hypot(bldOffset, adjBldHeight)
-        val objectOffSet = bldOffset * (boomLen - hypot) / hypot;
+    private fun toDegree(radians: Double): Double { return radians * (180 / Math.PI); }
+    private fun toRadian(degree: Double): Double { return degree * (Math.PI / 180); }
+    private fun toTwoDecimal(num: Double): Double { return String.format("%.2f", num).toDouble() }
+    private fun getInputVal(id: Int): Double { return findViewById<EditText>(id).text.toString().toDouble() }
 
+    public fun calculate(view: View) {
+        val boomLen = getInputVal(R.id.boom_length)
+        val baseHeight = getInputVal(R.id.crane_base_height)
+        val bldHeight = getInputVal(R.id.bldg_heigth)
+        val bldOffset = getInputVal(R.id.bldg_offset)
+        val adjBldHeight = bldHeight - baseHeight
+        val boomAngle = toTwoDecimal(Math.atan(adjBldHeight / bldOffset) * 180 / Math.PI)
+        val hypot = Math.hypot(bldOffset, adjBldHeight)
+        val objectOffSet = toTwoDecimal(bldOffset * (boomLen - hypot) / hypot)
+        val jibOffsetAngle = Math.abs(boomAngle - getInputVal(R.id.jib_offset))
+        val jibOffsetLen = Math.cos(toRadian(jibOffsetAngle)) * getInputVal(R.id.jib_len)
+        val overallRadius = toTwoDecimal(bldOffset + objectOffSet + jibOffsetLen)
+        val insert_qty = getInputVal(R.id.insert_qty)
+        val insert_len = getInputVal(R.id.insert_len)
+        val overallBoomLen = toTwoDecimal(boomLen + (insert_qty * insert_len))
+
+        println(jibOffsetLen)
         findViewById<EditText>(R.id.object_offset).setText(objectOffSet.toString())
         findViewById<EditText>(R.id.boom_angle).setText(boomAngle.toString())
+        findViewById<EditText>(R.id.overall_radius).setText(overallRadius.toString())
+        findViewById<EditText>(R.id.overall_boom_len).setText(overallBoomLen.toString())
 
         val cbGroup = findViewById<Group>(R.id.cb_group)
 
