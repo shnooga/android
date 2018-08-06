@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="73dp">
 
@@ -21,7 +22,7 @@
     <EditText
         android:id="@+id/jib_offset"
         android:layout_width="120dp"
-        android:layout_height="36dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
@@ -35,7 +36,7 @@
     <EditText
         android:id="@+id/insert_len"
         android:layout_width="120dp"
-        android:layout_height="36dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
@@ -43,12 +44,12 @@
         android:inputType="textPersonName|numberDecimal"
         android:text="10"
         app:layout_constraintEnd_toEndOf="@+id/barrier2"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <EditText
         android:id="@+id/insert_qty"
         android:layout_width="120dp"
-        android:layout_height="36dp"
+        android:layout_height="33dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -56,17 +57,18 @@
         android:inputType="textPersonName|number"
         android:text="0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <EditText
         android:id="@+id/overall_boom_len"
         android:layout_width="120dp"
-        android:layout_height="36dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
         android:ems="10"
-        android:inputType="textPersonName|numberDecimal"
+        android:inputType="numberDecimal"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="@+id/barrier2"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -74,12 +76,13 @@
     <EditText
         android:id="@+id/overall_radius"
         android:layout_width="120dp"
-        android:layout_height="36dp"
+        android:layout_height="33dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
         android:ems="10"
-        android:inputType="textPersonName|numberDecimal"
+        android:inputType="none|numberDecimal"
         android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -111,6 +114,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/holo_blue_light"
         android:ems="10"
         android:inputType="number"
         android:text="142"
@@ -124,6 +128,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/holo_green_dark"
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="10"
@@ -153,10 +158,11 @@
     <EditText
         android:id="@+id/bldg_heigth"
         android:layout_width="106dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/holo_orange_light"
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="25"
@@ -166,10 +172,11 @@
     <EditText
         android:id="@+id/bldg_offset"
         android:layout_width="166dp"
-        android:layout_height="40dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/holo_purple"
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="30"
@@ -202,24 +209,26 @@
     <EditText
         android:id="@+id/boom_angle"
         android:layout_width="100dp"
-        android:layout_height="37dp"
+        android:layout_height="33dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
         android:ems="10"
-        android:inputType="textPersonName|numberDecimal"
+        android:inputType="none|number|numberDecimal"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
         android:id="@+id/object_offset"
         android:layout_width="100dp"
-        android:layout_height="34dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
         android:ems="10"
-        android:inputType="textPersonName|numberDecimal"
+        android:inputType="none|numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -305,23 +314,23 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/insert_qty"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/jib_len" />
+        app:layout_constraintEnd_toEndOf="@+id/barrier2"
+        app:layout_constraintTop_toBottomOf="@+id/jib_offset" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/insert_len"
-        app:layout_constraintEnd_toEndOf="@+id/barrier2"
-        app:layout_constraintTop_toBottomOf="@+id/jib_offset" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/jib_len" />
 
     <TextView
         android:id="@+id/textView12"
@@ -348,9 +357,10 @@
     <EditText
         android:id="@+id/jib_len"
         android:layout_width="120dp"
-        android:layout_height="39dp"
+        android:layout_height="33dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName|numberDecimal"
         android:text="10"
