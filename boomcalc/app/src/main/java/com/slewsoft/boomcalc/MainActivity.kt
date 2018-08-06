@@ -54,6 +54,25 @@ class MainActivity : Activity() {
     private fun toTwoDecimal(num: Double): Double { return String.format("%.2f", num).toDouble() }
     private fun getInputVal(id: Int): Double { return findViewById<EditText>(id).text.toString().toDouble() }
 
+    public fun reset(view: View) {
+        findViewById<EditText>(R.id.boom_length).setText("0")
+        findViewById<EditText>(R.id.crane_base_height).setText("0")
+        findViewById<EditText>(R.id.bldg_heigth).setText("0")
+        findViewById<EditText>(R.id.bldg_offset).setText("0")
+
+        findViewById<EditText>(R.id.jib_len).setText("0")
+        findViewById<EditText>(R.id.jib_offset).setText("0")
+
+        findViewById<EditText>(R.id.insert_len).setText("0")
+        findViewById<EditText>(R.id.insert_qty).setText("0")
+
+        findViewById<EditText>(R.id.boom_angle).setText("0")
+        findViewById<EditText>(R.id.object_offset).setText("0")
+        findViewById<EditText>(R.id.overall_radius).setText("0")
+        findViewById<EditText>(R.id.overall_boom_len).setText("0")
+
+    }
+
     public fun calculate(view: View) {
         val boomLen = getInputVal(R.id.boom_length)
         val baseHeight = getInputVal(R.id.crane_base_height)
