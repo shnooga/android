@@ -1,5 +1,6 @@
 package com.slewsoft.tabxperim;
 
+import android.graphics.Point;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,13 +19,30 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity
-        implements OnMapReadyCallback,
-        OnMarkerClickListener,
-        View.OnClickListener {
-    private static final LatLng LINKEDIN = new LatLng(37.4233438, -122.0728817);
+        implements  OnMapReadyCallback,
+                    OnMapLongClickListener,
+                    OnMarkerClickListener,
+                    View.OnClickListener {
+
+    private static double DEFAULT_CRANE_RADIUS_FT = 150;
+//    private static final LatLng LINKEDIN = new LatLng(37.4233438, -122.0728817);
     private GoogleMap mMap;
     private LocationHelper helper = new LocationHelper();
+    private List<DraggableCircle> craneMarkers = new ArrayList<>();
+
+    @Override
+    public void onMapLongClick(LatLng point) {
+//        View view = getSupportFragmentManager().findFragmentById(R.id.map).getView();
+//        LatLng radiusLatLng = mMap.getProjection().fromScreenLocation(new Point( view.getHeight() * 3 / 4, view.getWidth() * 3 / 4));
+
+//        DraggableCircle circle = new DraggableCircle(mMap, point, helper.toRadiusMeters(point, radiusLatLng));
+        DraggableCircle circle = new DraggableCircle(mMap, point, DEFAULT_CRANE_RADIUS_FT);
+        craneMarkers.add(circle);
+    }
 
     @Override
     public void onClick(View view) {
@@ -35,7 +53,7 @@ public class MapsActivity extends FragmentActivity
             LatLng newLocation = helper.getLocation(address, this);
 
             createMarker(mMap, newLocation);
-            helper.goToLocation(mMap, newLocation, 19);
+            helper.goToLocation(mMap, newLocation, 18);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,8 +112,9 @@ public class MapsActivity extends FragmentActivity
 
 
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(LINKEDIN));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LINKEDIN, 18));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LINKEDIN, 18));
         mMap.setOnMarkerClickListener(this);
+        mMap.setOnMapLongClickListener(this);
     }
 
     private LatLng createOffset(final LatLng location) {
