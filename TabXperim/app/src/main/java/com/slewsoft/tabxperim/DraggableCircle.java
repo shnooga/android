@@ -35,7 +35,6 @@ public class DraggableCircle {
     private static final List<PatternItem> PATTERN_DASHED = Arrays.asList(DASH, GAP);
     private static final List<PatternItem> PATTERN_MIXED = Arrays.asList(DOT, GAP, DOT, DASH, GAP);
     private final Marker mCenterMarker;
-    private final Marker mRadiusMarker;
     private final Circle mCircle;
     private double mRadiusMeters;
     private GoogleMap mMap;
@@ -46,10 +45,8 @@ public class DraggableCircle {
         mCenterMarker = mMap.addMarker(new MarkerOptions()
                 .position(center)
                 .draggable(true));
-        mRadiusMarker = mMap.addMarker(new MarkerOptions()
-                .position(toRadiusLatLng(center, mRadiusMeters))
-                .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_AZURE)));
+        mCenterMarker.showInfoWindow();
+
         mCircle = mMap.addCircle(new CircleOptions()
                 .center(center)
                 .radius(mRadiusMeters)
@@ -62,31 +59,24 @@ public class DraggableCircle {
     public boolean onMarkerMoved(Marker marker) {
         if (marker.equals(mCenterMarker)) {
             mCircle.setCenter(marker.getPosition());
-            mRadiusMarker.setPosition(toRadiusLatLng(marker.getPosition(), mRadiusMeters));
-            return true;
-        }
-        if (marker.equals(mRadiusMarker)) {
-            mRadiusMeters =
-                    toRadiusMeters(mCenterMarker.getPosition(), mRadiusMarker.getPosition());
-            mCircle.setRadius(mRadiusMeters);
             return true;
         }
         return false;
     }
 
     /** Generate LatLng of radius marker */
-    public LatLng toRadiusLatLng(LatLng center, double radiusMeters) {
-        double radiusAngle = Math.toDegrees(radiusMeters / RADIUS_OF_EARTH_METERS) /
-                Math.cos(Math.toRadians(center.latitude));
-        return new LatLng(center.latitude, center.longitude + radiusAngle);
-    }
-
-    public double toRadiusMeters(LatLng center, LatLng radius) {
-        float[] result = new float[1];
-        Location.distanceBetween(center.latitude, center.longitude,
-                radius.latitude, radius.longitude, result);
-        return result[0];
-    }
+//    public LatLng toRadiusLatLng(LatLng center, double radiusMeters) {
+//        double radiusAngle = Math.toDegrees(radiusMeters / RADIUS_OF_EARTH_METERS) /
+//                Math.cos(Math.toRadians(center.latitude));
+//        return new LatLng(center.latitude, center.longitude + radiusAngle);
+//    }
+//
+//    public double toRadiusMeters(LatLng center, LatLng radius) {
+//        float[] result = new float[1];
+//        Location.distanceBetween(center.latitude, center.longitude,
+//                radius.latitude, radius.longitude, result);
+//        return result[0];
+//    }
 
 //    public void onStyleChange() {
 //        mCircle.setStrokeWidth(mStrokeWidthBar.getProgress());
