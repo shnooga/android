@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:map="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/label_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address" />
+
+    <EditText
+        android:id="@+id/edit_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/go_to_address"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Golden 1 Center" />
+
+
+<!-- Change the camera of the map to show no markers -->
+    <Button
+        android:id="@+id/go_to_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="57dp"
+        android:layout_marginTop="42dp"
+        android:onClick="showDarwin"
+        android:text="Go" />
+
+
+<!-- MapFragment with lite mode enabled -->
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="401dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/go_to_address"
+        android:layout_marginTop="43dp"
+        map:liteMode="true" />
+
+
+</RelativeLayout>
