@@ -1,6 +1,5 @@
 package com.slewsoft.tabxperim;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -26,6 +26,7 @@ public class MapsActivity extends FragmentActivity
         implements  OnMapReadyCallback,
                     OnMapLongClickListener,
                     OnMarkerClickListener,
+                    OnMarkerDragListener,
                     View.OnClickListener {
 
     private static double DEFAULT_CRANE_RADIUS_FT = 150;
@@ -90,8 +91,10 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setOnMarkerClickListener(this);
         mMap.setOnMapLongClickListener(this);
+        mMap.setOnMarkerDragListener(this);
+
+        mMap.setOnMarkerClickListener(this); // Displays a Toast
     }
 
     @Override
@@ -115,5 +118,28 @@ public class MapsActivity extends FragmentActivity
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
+    }
+
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+        onMarkerMoved(marker);
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        onMarkerMoved(marker);
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+        onMarkerMoved(marker);
+    }
+
+    private void onMarkerMoved(Marker marker) {
+        for (DraggableCircle draggableCircle : craneMarkers) {
+            if (draggableCircle.onMarkerMoved(marker)) {
+                break;
+            }
+        }
     }
 }
