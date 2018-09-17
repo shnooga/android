@@ -1,10 +1,8 @@
 package com.slewsoft.tabxperim;
 
 import android.graphics.Color;
-import android.location.Location;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.Dash;
@@ -38,19 +36,22 @@ public class DraggableCircle {
     private final Circle mCircle;
     private double mRadiusMeters;
     private GoogleMap mMap;
+    private LocationHelper locationHelper = new LocationHelper();
 
-    public DraggableCircle(GoogleMap map, LatLng center, double radiusFt) {
+    public DraggableCircle(String title, GoogleMap map, LatLng center, double radiusFt) {
         mMap = map;
-        mRadiusMeters = radiusFt/3.2808;
+        mRadiusMeters = locationHelper.toMeter(radiusFt);
         mCenterMarker = mMap.addMarker(new MarkerOptions()
                 .position(center)
+                .title(title)
                 .draggable(true));
+
         mCenterMarker.showInfoWindow();
 
         mCircle = mMap.addCircle(new CircleOptions()
                 .center(center)
                 .radius(mRadiusMeters)
-                .strokeWidth(3)
+                .strokeWidth(2)
                 .strokeColor(Color.RED)
 //                .fillColor(mFillColorArgb)
                 .clickable(true));

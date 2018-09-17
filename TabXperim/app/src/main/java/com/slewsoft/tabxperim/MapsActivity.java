@@ -1,5 +1,6 @@
 package com.slewsoft.tabxperim;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -29,12 +30,14 @@ public class MapsActivity extends FragmentActivity
 
     private static double DEFAULT_CRANE_RADIUS_FT = 150;
     private GoogleMap mMap;
-    private LocationHelper helper = new LocationHelper();
+    private LocationHelper locationHelper = new LocationHelper();
     private List<DraggableCircle> craneMarkers = new ArrayList<>();
+    private List<Marker> unitMarkers = new ArrayList<>();
 
     @Override
     public void onMapLongClick(LatLng point) {
-        DraggableCircle circle = new DraggableCircle(mMap, point, DEFAULT_CRANE_RADIUS_FT);
+        int craneCount = craneMarkers.size() + 1;
+        DraggableCircle circle = new DraggableCircle("Crane " + craneCount, mMap, point, DEFAULT_CRANE_RADIUS_FT);
         craneMarkers.add(circle);
     }
 
@@ -44,17 +47,17 @@ public class MapsActivity extends FragmentActivity
             hideSoftKeyboard(view);
 
             String address = ((EditText) findViewById(R.id.edit_address)).getText().toString();
-            LatLng newLocation = helper.getLocation(address, this);
+            LatLng newLocation = locationHelper.getLocation(address, this);
 
-            createMarker(mMap, newLocation);
-            helper.goToLocation(mMap, newLocation, 18);
+            unitMarkers.add(createUnit(mMap, newLocation));
+            locationHelper.goToLocation(mMap, newLocation, 18);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void createMarker(GoogleMap map, LatLng location) {
+    public Marker createUnit(GoogleMap map, LatLng location) {
         Marker unit = map.addMarker(new MarkerOptions()
                 .position(location)
                 .title("Unit 1")
@@ -63,6 +66,7 @@ public class MapsActivity extends FragmentActivity
 
         unit.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         unit.showInfoWindow();
+        return unit;
     }
 
     private void hideSoftKeyboard(View view) {
@@ -99,6 +103,12 @@ public class MapsActivity extends FragmentActivity
             clickCount = clickCount + 1;
             marker.setTag(clickCount);
             Toast.makeText(this, marker.getTitle() + " has been clicked " + clickCount + " times.", Toast.LENGTH_SHORT).show();
+        } else {
+            if (unitMarkers.size() == 1) {
+                Marker unit = unitMarkers.get(0);
+                String dist = locationHelper.distanceBetweenInFt(unit.getPosition(), marker.getPosition());
+                Toast.makeText(this, marker.getTitle() + " is " + dist + " feet from " + unit.getTitle(), Toast.LENGTH_SHORT).show();
+            }
         }
 
         // Return false to indicate that we have not consumed the event and that we wish

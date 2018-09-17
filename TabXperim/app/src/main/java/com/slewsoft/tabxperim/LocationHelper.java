@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 
 public class LocationHelper {
+    public static final double FT_TO_METER = 3.2808;
     private static final double RADIUS_OF_EARTH_METERS = 6371009;
 
     public void goToLocation(GoogleMap map, LatLng ll, float zoom) {
@@ -34,10 +35,25 @@ public class LocationHelper {
         return new LatLng(center.latitude, center.longitude + radiusAngle);
     }
 
+    public String distanceBetweenInFt(LatLng position1, LatLng position2) {
+        float[] results = new float[1];
+        Location.distanceBetween(position1.latitude, position1.longitude, position2.latitude, position2.longitude, results);
+        double roundOff = Math.round(toFeet(results[0]) * 100) / 100;
+        return "" + roundOff;
+    }
+
     public double toRadiusMeters(LatLng center, LatLng radius) {
         float[] result = new float[1];
         Location.distanceBetween(center.latitude, center.longitude, radius.latitude, radius.longitude, result);
         return result[0];
+    }
+
+    public double toMeter(double lengthFeet) {
+        return lengthFeet/FT_TO_METER;
+    }
+
+    public double toFeet(double lengthMeter) {
+        return lengthMeter * FT_TO_METER;
     }
 
 }
