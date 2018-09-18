@@ -64,7 +64,7 @@ public class Tab1Fragment extends Fragment
         Button clickButton = mView.findViewById(R.id.go_to_address);
         clickButton.setOnClickListener(this);
 
-//        mMap.setOnMarkerDragListener(this);
+        mMap.setOnMarkerDragListener(mEventHandler);
         mMap.setOnMapLongClickListener(mEventHandler);
 //
 //        mMap.setOnMarkerClickListener(this); // Displays a Toast
@@ -72,6 +72,8 @@ public class Tab1Fragment extends Fragment
 //
 //        DraggableCircle circle = new DraggableCircle(SYDNEY, DEFAULT_RADIUS_METERS);
 //        mCircles.add(circle);
+
+
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.addMarker(new MarkerOptions()
@@ -88,12 +90,19 @@ public class Tab1Fragment extends Fragment
             String address = ((EditText) mView.findViewById(R.id.edit_address)).getText().toString();
             LatLng newLocation = mLocationHelper.getLocation(address, getActivity());
 
+            clearCurrentMarkers();
             mUnitMarkers.add(createUnit(mMap, newLocation));
             mLocationHelper.goToLocation(mMap, newLocation, 18);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void clearCurrentMarkers() {
+        mUnitMarkers.clear();
+        mCraneMarkers.clear();
+        mMap.clear();
     }
 
     public Marker createUnit(GoogleMap map, LatLng location) {
