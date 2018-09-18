@@ -25,11 +25,7 @@ import java.util.List;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-public class Tab1Fragment extends Fragment
-    implements  OnMapReadyCallback,
-                View.OnClickListener {
-
-    private static double DEFAULT_CRANE_RADIUS_FT = 150;
+public class Tab1Fragment extends Fragment implements  OnMapReadyCallback, View.OnClickListener {
     private static final LatLng DISNEYLAND = new LatLng(33.812324, -117.918942);
 
     private GoogleMap mMap;
@@ -38,7 +34,6 @@ public class Tab1Fragment extends Fragment
     public List<DraggableCircle> mCraneMarkers = new ArrayList<>();
     private List<Marker> mUnitMarkers = new ArrayList<>();
     private MapSiteEventHandler mEventHandler;
-
 
 
     @Override
@@ -56,8 +51,7 @@ public class Tab1Fragment extends Fragment
 
     @Override
     public void onMapReady(GoogleMap map) {
-
-        map.setContentDescription("blahdy blah");
+//        map.setContentDescription("blahdy blah");
         mMap = map;
         mEventHandler = new MapSiteEventHandler(mMap, getActivity(), mCraneMarkers, mUnitMarkers);
 
@@ -66,20 +60,10 @@ public class Tab1Fragment extends Fragment
 
         mMap.setOnMarkerDragListener(mEventHandler);
         mMap.setOnMapLongClickListener(mEventHandler);
-//
-//        mMap.setOnMarkerClickListener(this); // Displays a Toast
-
-//
-//        DraggableCircle circle = new DraggableCircle(SYDNEY, DEFAULT_RADIUS_METERS);
-//        mCircles.add(circle);
-
-
+        mMap.setOnMarkerClickListener(mEventHandler); // Displays a Toast
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.addMarker(new MarkerOptions()
-                .position(DISNEYLAND)
-                .draggable(true));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DISNEYLAND, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DISNEYLAND, 7));
     }
 
     @Override
