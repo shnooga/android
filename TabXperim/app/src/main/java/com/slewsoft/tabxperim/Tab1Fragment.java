@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -22,6 +23,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public class Tab1Fragment extends Fragment
     implements  OnMapReadyCallback,
                 View.OnClickListener {
@@ -30,10 +33,13 @@ public class Tab1Fragment extends Fragment
     private static final LatLng DISNEYLAND = new LatLng(33.812324, -117.918942);
 
     private GoogleMap mMap;
-    private LocationHelper locationHelper = new LocationHelper();
-    private List<DraggableCircle> craneMarkers = new ArrayList<>();
-    private List<Marker> unitMarkers = new ArrayList<>();
     private View mView;
+    private LocationHelper mLocationHelper = new LocationHelper();
+    public List<DraggableCircle> mCraneMarkers = new ArrayList<>();
+    private List<Marker> mUnitMarkers = new ArrayList<>();
+    private MapSiteEventHandler mEventHandler;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,13 +56,16 @@ public class Tab1Fragment extends Fragment
 
     @Override
     public void onMapReady(GoogleMap map) {
-        Button clickButton = mView.findViewById(R.id.go_to_address);
-        clickButton.setOnClickListener(this);
 
         map.setContentDescription("blahdy blah");
         mMap = map;
+        mEventHandler = new MapSiteEventHandler(mMap, getActivity(), mCraneMarkers, mUnitMarkers);
+
+        Button clickButton = mView.findViewById(R.id.go_to_address);
+        clickButton.setOnClickListener(this);
+
 //        mMap.setOnMarkerDragListener(this);
-//        mMap.setOnMapLongClickListener(this);
+        mMap.setOnMapLongClickListener(mEventHandler);
 //
 //        mMap.setOnMarkerClickListener(this); // Displays a Toast
 
@@ -77,10 +86,10 @@ public class Tab1Fragment extends Fragment
             hideSoftKeyboard(view);
 
             String address = ((EditText) mView.findViewById(R.id.edit_address)).getText().toString();
-            LatLng newLocation = locationHelper.getLocation(address, getActivity());
+            LatLng newLocation = mLocationHelper.getLocation(address, getActivity());
 
-            unitMarkers.add(createUnit(mMap, newLocation));
-            locationHelper.goToLocation(mMap, newLocation, 18);
+            mUnitMarkers.add(createUnit(mMap, newLocation));
+            mLocationHelper.goToLocation(mMap, newLocation, 18);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +109,7 @@ public class Tab1Fragment extends Fragment
     }
 
     private void hideSoftKeyboard(View view) {
-//        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

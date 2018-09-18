@@ -10,7 +10,6 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MapSiteEventHandler
@@ -22,20 +21,22 @@ public class MapSiteEventHandler
     private static double DEFAULT_CRANE_RADIUS_FT = 150;
     private GoogleMap mMap;
     private Context mContext;
-    private LocationHelper locationHelper = new LocationHelper();
-    private List<DraggableCircle> craneMarkers = new ArrayList<>();
-    private List<Marker> unitMarkers = new ArrayList<>();
+    private LocationHelper mLocationHelper = new LocationHelper();
+    public List<DraggableCircle> mCraneMarkers;
+    public List<Marker> mUnitMarkers;
 
-    public MapSiteEventHandler(GoogleMap mMap, Context mContext) {
+    public MapSiteEventHandler(GoogleMap mMap, Context mContext, List<DraggableCircle> mCraneMarkers, List<Marker> mUnitMarkers) {
         this.mMap = mMap;
         this.mContext = mContext;
+        this.mCraneMarkers = mCraneMarkers;
+        this.mUnitMarkers = mUnitMarkers;
     }
 
     @Override
     public void onMapLongClick(LatLng point) {
-        int craneCount = craneMarkers.size() + 1;
+        int craneCount = mCraneMarkers.size() + 1;
         DraggableCircle circle = new DraggableCircle("Crane " + craneCount, mMap, point, DEFAULT_CRANE_RADIUS_FT);
-        craneMarkers.add(circle);
+        mCraneMarkers.add(circle);
     }
 
     @Override
@@ -48,9 +49,9 @@ public class MapSiteEventHandler
             marker.setTag(clickCount);
             Toast.makeText(mContext, marker.getTitle() + " has been clicked " + clickCount + " times.", Toast.LENGTH_SHORT).show();
         } else {
-            if (unitMarkers.size() == 1) {
-                Marker unit = unitMarkers.get(0);
-                String dist = locationHelper.distanceBetweenInFt(unit.getPosition(), marker.getPosition());
+            if (mUnitMarkers.size() == 1) {
+                Marker unit = mUnitMarkers.get(0);
+                String dist = mLocationHelper.distanceBetweenInFt(unit.getPosition(), marker.getPosition());
                 Toast.makeText(mContext, marker.getTitle() + " is " + dist + " feet from " + unit.getTitle(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -77,7 +78,7 @@ public class MapSiteEventHandler
     }
 
     private void onMarkerMoved(Marker marker) {
-        for (DraggableCircle draggableCircle : craneMarkers) {
+        for (DraggableCircle draggableCircle : mCraneMarkers) {
             if (draggableCircle.onMarkerMoved(marker)) {
                 break;
             }
