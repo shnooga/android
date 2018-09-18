@@ -8,82 +8,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="properties_circle" />
+        android:text="address" />
 
-    <TableLayout
+
+    <EditText
+        android:id="@+id/edit_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="1">
+        android:ems="10"
+        android:inputType="text"
+        android:text="Golden 1 center" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <TextView android:text="fill_hue" />
-            <SeekBar android:id="@+id/fillHueSeekBar" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <TextView android:text="fill_alpha" />
-            <SeekBar android:id="@+id/fillAlphaSeekBar" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <TextView android:text="stroke_width" />
-            <SeekBar android:id="@+id/strokeWidthSeekBar" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <TextView android:text="stroke_hue" />
-            <SeekBar android:id="@+id/strokeHueSeekBar" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <TextView android:text="stroke_alpha" />
-            <SeekBar android:id="@+id/strokeAlphaSeekBar" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <TextView
-                android:text="stroke_pattern"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Spinner
-                android:id="@+id/strokePatternSpinner"
-                android:spinnerMode="dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <CheckBox
-                android:id="@+id/toggleClickability"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:onClick="toggleClickability"
-                android:text="clickable"/>
-        </TableRow>
-
-    </TableLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/go_to_address"
+        android:text="TESTBTN1" />
 
     <fragment
         android:id="@+id/map"

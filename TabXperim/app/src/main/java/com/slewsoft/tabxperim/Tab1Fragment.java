@@ -8,45 +8,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tab1Fragment extends Fragment
-    implements OnMapReadyCallback {
+    implements  OnMapReadyCallback,
+                View.OnClickListener {
 
-    GoogleMap mMap;
-    MapView mMapView;
-    View mView;
+    private static double DEFAULT_CRANE_RADIUS_FT = 150;
+    private static final LatLng DISNEYLAND = new LatLng(33.812324, -117.918942);
 
-    private static final String TAG = "Tab1Fragment";
-    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
-
-    private Button btnTest;
+    private GoogleMap mMap;
+    private LocationHelper locationHelper = new LocationHelper();
+    private List<DraggableCircle> craneMarkers = new ArrayList<>();
+    private List<Marker> unitMarkers = new ArrayList<>();
+    private View mView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /*
-        View view = inflater.inflate(R.layout.tab1_fragment, container, false);
-        btnTest = view.findViewById(R.id.btn_Test1);
-
-        btnTest.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Testing Btn click 1", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return view;
-        */
-
         mView = inflater.inflate(R.layout.map_fragment, container, false);
         return mView;
     }
@@ -60,47 +50,57 @@ public class Tab1Fragment extends Fragment
 
     @Override
     public void onMapReady(GoogleMap map) {
-        /*
-        MapsInitializer.initialize(getContext());
-        mMap = map;
-//        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.addMarker(new MarkerOptions()
-                .position(SYDNEY)
-                .draggable(true));
+        Button clickButton = mView.findViewById(R.id.go_to_address);
+        clickButton.setOnClickListener(this);
 
-//        CameraPosition position = CameraPosition.builder().target(SYDNEY).zoom(16).build();
-//        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(position));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SYDNEY, 17));
-        */
         map.setContentDescription("blahdy blah");
-
         mMap = map;
 //        mMap.setOnMarkerDragListener(this);
 //        mMap.setOnMapLongClickListener(this);
 //
 //        mMap.setOnMarkerClickListener(this); // Displays a Toast
 
-//        mFillColorArgb = Color.HSVToColor(
-//                mFillAlphaBar.getProgress(), new float[]{mFillHueBar.getProgress(), 1, 1});
-//        mStrokeColorArgb = Color.HSVToColor(
-//                mStrokeAlphaBar.getProgress(), new float[]{mStrokeHueBar.getProgress(), 1, 1});
-//
-//        mFillHueBar.setOnSeekBarChangeListener(this);
-//        mFillAlphaBar.setOnSeekBarChangeListener(this);
-//
-//        mStrokeWidthBar.setOnSeekBarChangeListener(this);
-//        mStrokeHueBar.setOnSeekBarChangeListener(this);
-//        mStrokeAlphaBar.setOnSeekBarChangeListener(this);
-//
-//        mStrokePatternSpinner.setOnItemSelectedListener(this);
 //
 //        DraggableCircle circle = new DraggableCircle(SYDNEY, DEFAULT_RADIUS_METERS);
 //        mCircles.add(circle);
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.addMarker(new MarkerOptions()
-                .position(SYDNEY)
+                .position(DISNEYLAND)
                 .draggable(true));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SYDNEY, 19));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DISNEYLAND, 15));
+    }
+
+    @Override
+    public void onClick(View view) {
+        try {
+            hideSoftKeyboard(view);
+
+            String address = ((EditText) mView.findViewById(R.id.edit_address)).getText().toString();
+            LatLng newLocation = locationHelper.getLocation(address, getActivity());
+
+            unitMarkers.add(createUnit(mMap, newLocation));
+            locationHelper.goToLocation(mMap, newLocation, 18);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Marker createUnit(GoogleMap map, LatLng location) {
+        Marker unit = map.addMarker(new MarkerOptions()
+                .position(location)
+                .title("Unit 1")
+                .draggable(true));
+        unit.setTag(0);
+
+        unit.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        unit.showInfoWindow();
+        return unit;
+    }
+
+    private void hideSoftKeyboard(View view) {
+//        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
