@@ -21,7 +21,8 @@ public class DraggableCircle {
         mRadiusMeters = locationHelper.toMeter(radiusFt);
         mCenterMarker = mMap.addMarker(new MarkerOptions()
                 .position(center)
-                .title(title));
+                .title(title)
+                .draggable(true));
 
         mCenterMarker.showInfoWindow();
 

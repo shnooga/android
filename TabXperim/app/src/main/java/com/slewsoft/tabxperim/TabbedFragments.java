@@ -9,7 +9,6 @@ import android.util.Log;
 public class TabbedFragments extends AppCompatActivity {
     private static final String TAG="MainActivity";
 
-    private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
 
     @Override
@@ -17,7 +16,6 @@ public class TabbedFragments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabbed_fragments);
 
-//        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         Log.d(TAG, "onCreate: Starting");
 
         mViewPager = findViewById(R.id.container);
@@ -30,9 +28,9 @@ public class TabbedFragments extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new Tab1Fragment(), "TAB1");
-        adapter.addFragment(new Tab2Fragment(), "TAB2");
-        adapter.addFragment(new Tab3Fragment(), "TAB3");
+        adapter.addFragment(new Tab1Fragment(), "Presite");
+        adapter.addFragment(new Tab2Fragment(), "Job Detail");
+        adapter.addFragment(new Tab3Fragment(), "Customers");
         viewPager.setAdapter(adapter);
     }
 
