@@ -15,6 +15,7 @@ public class DraggableCircle {
     private double mRadiusMeters;
     private GoogleMap mMap;
     private LocationHelper locationHelper = new LocationHelper();
+    private MarkerHelper markerHelper = new MarkerHelper();
 
     public DraggableCircle(String title, GoogleMap map, LatLng center, double radiusFt) {
         mMap = map;
@@ -23,6 +24,7 @@ public class DraggableCircle {
                 .position(center)
                 .title(title)
                 .draggable(true));
+        mCenterMarker.setTag(markerHelper.createCraneInfo("", ""));
 
         mCenterMarker.showInfoWindow();
 

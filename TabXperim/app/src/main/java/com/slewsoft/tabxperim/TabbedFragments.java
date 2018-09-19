@@ -28,7 +28,7 @@ public class TabbedFragments extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new Tab1Fragment(), "Presite");
+        adapter.addFragment(new PreSiteFragment(), "Presite");
         adapter.addFragment(new Tab2Fragment(), "Job Detail");
         adapter.addFragment(new Tab3Fragment(), "Customers");
         viewPager.setAdapter(adapter);
