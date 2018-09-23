@@ -25,7 +25,7 @@ import java.util.List;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-public class PreSiteFragment extends Fragment implements  OnMapReadyCallback, View.OnClickListener {
+public class PreSiteFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
     private static final LatLng DISNEYLAND = new LatLng(33.812324, -117.918942);
 
     private GoogleMap mMap;
@@ -56,8 +56,8 @@ public class PreSiteFragment extends Fragment implements  OnMapReadyCallback, Vi
         mMap = map;
         mEventHandler = new PreSiteEventHandler(mMap, getActivity(), mCraneMarkers, mUnitMarkers);
 
-        Button clickButton = mView.findViewById(R.id.go_to_address);
-        clickButton.setOnClickListener(this);
+        mView.findViewById(R.id.go_to_address).setOnClickListener(this);
+        mView.findViewById(R.id.edit_site).setOnClickListener(this);
 
         mMap.setOnMarkerDragListener(mEventHandler);
         mMap.setOnMapLongClickListener(mEventHandler);
@@ -69,6 +69,23 @@ public class PreSiteFragment extends Fragment implements  OnMapReadyCallback, Vi
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.go_to_address:
+                zoomToLocation(view);
+                break;
+            case R.id.edit_site:
+                openEditSiteDialog(view);
+                break;
+            default:
+        }
+    }
+
+    private void openEditSiteDialog(View view) {
+        EditSiteFragment dialog = new EditSiteFragment();
+        dialog.show(getFragmentManager(), "Edit Job Site");
+    }
+
+    private void zoomToLocation(View view) {
         try {
             hideSoftKeyboard(view);
 
@@ -84,13 +101,14 @@ public class PreSiteFragment extends Fragment implements  OnMapReadyCallback, Vi
         }
     }
 
+
     private void clearCurrentMarkers() {
         mUnitMarkers.clear();
         mCraneMarkers.clear();
         mMap.clear();
     }
 
-    public Marker createUnit(GoogleMap map, LatLng location, String title, String ... details) {
+    public Marker createUnit(GoogleMap map, LatLng location, String title, String... details) {
         Marker unit = map.addMarker(new MarkerOptions()
                 .position(location)
                 .title(title)

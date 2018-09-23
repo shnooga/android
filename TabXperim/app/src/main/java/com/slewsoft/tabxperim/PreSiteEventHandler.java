@@ -10,8 +10,6 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import static com.slewsoft.tabxperim.MarkerHelper.MarkerType.Crane;
-import static com.slewsoft.tabxperim.MarkerHelper.MarkerType.Unit;
 
 import java.util.List;
 
