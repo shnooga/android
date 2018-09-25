@@ -33,8 +33,7 @@ public class SelectImageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tab3_fragment, container, false);
-/*
+//        View view = inflater.inflate(R.layout.tab3_fragment, container, false);
         View view = inflater.inflate(R.layout.image_select, container, false);
 
         imageView = view.findViewById(R.id.image_view);
@@ -87,7 +86,6 @@ public class SelectImageFragment extends Fragment {
             }
 
         });
-*/
 
         return view;
     }
