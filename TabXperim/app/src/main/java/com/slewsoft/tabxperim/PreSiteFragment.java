@@ -52,7 +52,6 @@ public class PreSiteFragment extends Fragment implements OnMapReadyCallback, Vie
 
     @Override
     public void onMapReady(GoogleMap map) {
-//        map.setContentDescription("blahdy blah");
         mMap = map;
         mEventHandler = new PreSiteEventHandler(mMap, getActivity(), mCraneMarkers, mUnitMarkers);
 
@@ -63,7 +62,7 @@ public class PreSiteFragment extends Fragment implements OnMapReadyCallback, Vie
         mMap.setOnMapLongClickListener(mEventHandler);
         mMap.setOnMarkerClickListener(mEventHandler); // Displays a Toast
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DISNEYLAND, 7));
     }
 

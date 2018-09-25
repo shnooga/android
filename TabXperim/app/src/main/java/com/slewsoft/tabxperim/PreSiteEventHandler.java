@@ -2,7 +2,6 @@ package com.slewsoft.tabxperim;
 
 import android.content.Context;
 import android.location.Location;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
@@ -50,7 +49,7 @@ public class PreSiteEventHandler
             case Crane:
                 Marker unit = findNearestUnit(marker);
                 String dist = mLocationHelper.distanceBetweenInFt(unit.getPosition(), marker.getPosition());
-                Toast.makeText(mContext, marker.getTitle() + " is " + dist + " feet from " + unit.getTitle(), Toast.LENGTH_SHORT).show();
+                marker.setSnippet(marker.getTitle() + " is " + dist + " feet from " + unit.getTitle());
                 break;
             default:
                 break;

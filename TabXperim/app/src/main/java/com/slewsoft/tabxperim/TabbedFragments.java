@@ -30,7 +30,8 @@ public class TabbedFragments extends AppCompatActivity {
 
         adapter.addFragment(new PreSiteFragment(), "Presite");
         adapter.addFragment(new Tab2Fragment(), "Job Detail");
-        adapter.addFragment(new Tab3Fragment(), "Customers");
+        adapter.addFragment(new SelectImageFragment(), "Select/Save Image");
+        adapter.addFragment(new RetrieveImageFragment(), "Retrieve Image");
         viewPager.setAdapter(adapter);
     }
 
